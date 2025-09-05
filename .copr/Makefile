@@ -21,15 +21,16 @@ srpm:
 	# Extract and prepare source with bundled brotli
 	@echo "=== Preparing source with bundled brotli ==="
 	tar xzf php-ext-brotli-$(BROTLI_VERSION).tar.gz
-	cd php-ext-brotli-$(BROTLI_VERSION) && \
+	mv php-ext-brotli-$(BROTLI_VERSION) php-ext-brotli-temp
+	cd php-ext-brotli-temp && \
 	git init && \
 	git remote add origin https://github.com/kjdev/php-ext-brotli.git && \
 	git fetch --depth=1 origin $(BROTLI_VERSION) && \
-	git checkout FETCH_HEAD && \
+	git reset --hard FETCH_HEAD && \
 	git submodule update --init --recursive && \
 	cd .. && \
-	tar czf php-brotli-$(BROTLI_VERSION).tar.gz php-ext-brotli-$(BROTLI_VERSION)/ || exit 1
-	rm -rf php-ext-brotli-$(BROTLI_VERSION)/
+	tar czf php-brotli-$(BROTLI_VERSION).tar.gz php-ext-brotli-temp/ --transform='s/php-ext-brotli-temp/php-ext-brotli-$(BROTLI_VERSION)/' || exit 1
+	rm -rf php-ext-brotli-temp/
 	
 	# Generate spec file
 	@echo "=== Generating spec file ==="
