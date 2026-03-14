@@ -15,7 +15,7 @@ srpm:
 	@echo "Working directory: $$(pwd)"
 	
 	# Install SRPM build dependencies
-	dnf -y install git php-devel
+	dnf -y install git
 	
 	# Download php-ext-brotli source
 	@echo "=== Downloading php-ext-brotli $(BROTLI_VERSION) ==="
@@ -47,7 +47,7 @@ srpm:
 	echo ''; \
 	echo 'Name:           php-%{pecl_name}'; \
 	echo 'Version:        $(BROTLI_VERSION)'; \
-	echo 'Release:        1.php%{php_version}%{?dist}'; \
+	echo 'Release:        1%{?dist}'; \
 	echo 'Summary:        Brotli Extension for PHP'; \
 	echo ''; \
 	echo 'License:        MIT'; \
