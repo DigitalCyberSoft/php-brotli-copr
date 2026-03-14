@@ -14,18 +14,8 @@ srpm:
 	@echo "Output directory: $(outdir)"
 	@echo "Working directory: $$(pwd)"
 	
-	# Install git if not available (for COPR environment)
-	@if ! command -v git >/dev/null 2>&1; then \
-		echo "=== Installing git ==="; \
-		if command -v dnf >/dev/null 2>&1; then \
-			dnf install -y git || exit 1; \
-		elif command -v yum >/dev/null 2>&1; then \
-			yum install -y git || exit 1; \
-		else \
-			echo "ERROR: No package manager found to install git"; \
-			exit 1; \
-		fi; \
-	fi
+	# Install SRPM build dependencies
+	dnf -y install git php-devel
 	
 	# Download php-ext-brotli source
 	@echo "=== Downloading php-ext-brotli $(BROTLI_VERSION) ==="
