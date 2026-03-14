@@ -57,7 +57,7 @@ srpm:
 	echo ''; \
 	echo 'Name:           php-%{pecl_name}'; \
 	echo 'Version:        $(BROTLI_VERSION)'; \
-	echo 'Release:        1%{?dist}'; \
+	echo 'Release:        1.php%{php_major_version}%{php_minor_version}%{?dist}'; \
 	echo 'Summary:        Brotli Extension for PHP'; \
 	echo ''; \
 	echo 'License:        MIT'; \
