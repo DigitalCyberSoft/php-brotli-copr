@@ -7,6 +7,7 @@ outdir ?= .
 # Fetch latest release version from GitHub
 BROTLI_VERSION := $(shell curl -s https://api.github.com/repos/kjdev/php-ext-brotli/releases/latest | sed -n 's/.*"tag_name": *"\([^"]*\)".*/\1/p')
 BROTLI_URL = https://github.com/kjdev/php-ext-brotli/archive/refs/tags/$(BROTLI_VERSION).tar.gz
+RELEASE := $(shell cat $(CURDIR)/release 2>/dev/null || echo 1)
 
 # Default target for COPR
 srpm:
@@ -47,7 +48,7 @@ srpm:
 	echo ''; \
 	echo 'Name:           php-%{pecl_name}'; \
 	echo 'Version:        $(BROTLI_VERSION)'; \
-	echo 'Release:        1%{?dist}'; \
+	echo 'Release:        $(RELEASE)%{?dist}'; \
 	echo 'Summary:        Brotli Extension for PHP'; \
 	echo ''; \
 	echo 'License:        MIT'; \
