@@ -4,8 +4,8 @@
 # COPR provides outdir, set default for local testing
 outdir ?= .
 
-# php-ext-brotli version (latest release)
-BROTLI_VERSION = 0.18.2
+# Fetch latest release version from GitHub
+BROTLI_VERSION := $(shell curl -s https://api.github.com/repos/kjdev/php-ext-brotli/releases/latest | sed -n 's/.*"tag_name": *"\([^"]*\)".*/\1/p')
 BROTLI_URL = https://github.com/kjdev/php-ext-brotli/archive/refs/tags/$(BROTLI_VERSION).tar.gz
 
 # Default target for COPR
