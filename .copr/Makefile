@@ -38,7 +38,6 @@ srpm:
 	# Generate spec file
 	@echo "=== Generating spec file ==="
 	@( \
-	PHP_VER=$$(php-config --version); \
 	echo '# we dont want -z defs linker flag'; \
 	echo '%undefine _strict_symbol_defs_build'; \
 	echo ''; \
@@ -48,7 +47,7 @@ srpm:
 	echo ''; \
 	echo 'Name:           php-%{pecl_name}'; \
 	echo 'Version:        $(BROTLI_VERSION)'; \
-	echo "Release:        1.php$${PHP_VER}%{?dist}"; \
+	echo 'Release:        1.php%{php_version}%{?dist}'; \
 	echo 'Summary:        Brotli Extension for PHP'; \
 	echo ''; \
 	echo 'License:        MIT'; \
