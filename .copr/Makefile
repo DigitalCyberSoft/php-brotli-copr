@@ -15,7 +15,7 @@ srpm:
 	@echo "Working directory: $$(pwd)"
 	
 	# Install SRPM build dependencies
-	dnf -y install git
+	dnf -y install git php-devel
 	
 	# Download php-ext-brotli source
 	@echo "=== Downloading php-ext-brotli $(BROTLI_VERSION) ==="
