@@ -11,7 +11,7 @@ This repository contains the COPR build configuration to automatically build RPM
 - **Automated Builds**: Builds directly from php-ext-brotli GitHub releases
 - **PHP Version Support**: Builds for the system PHP version (7.0+)
 - **NTS and ZTS Support**: Builds both non-thread-safe and thread-safe variants
-- **Bundled libbrotli**: Includes bundled Brotli library (1.1.0) by default
+- **Bundled libbrotli**: Includes the Brotli library pinned by the php-ext-brotli release (see `Provides: bundled(brotli)`)
 - **Test Suite**: Runs upstream test suite during build
 
 ## COPR Repository

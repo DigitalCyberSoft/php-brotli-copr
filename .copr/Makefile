@@ -38,7 +38,10 @@ srpm:
 	
 	# Generate spec file
 	@echo "=== Generating spec file ==="
-	@( \
+	@BUNDLED_BROTLI=$$(tar xzOf php-brotli-$(BROTLI_VERSION).tar.gz php-ext-brotli-$(BROTLI_VERSION)/brotli/c/common/version.h | sed -n 's/^#define BROTLI_VERSION_\(MAJOR\|MINOR\|PATCH\) \([0-9]*\)$$/\2/p' | paste -sd.); \
+	echo "Bundled brotli version: $$BUNDLED_BROTLI"; \
+	test -n "$$BUNDLED_BROTLI" || { echo "ERROR: could not read bundled brotli version"; exit 1; }; \
+	( \
 	echo '# we dont want -z defs linker flag'; \
 	echo '%undefine _strict_symbol_defs_build'; \
 	echo ''; \
@@ -62,7 +65,7 @@ srpm:
 	echo 'Requires:       php(zend-abi) = %{php_zend_api}'; \
 	echo 'Requires:       php(api) = %{php_core_api}'; \
 	echo ''; \
-	echo 'Provides:       bundled(brotli) = 1.1.0'; \
+	echo "Provides:       bundled(brotli) = $$BUNDLED_BROTLI"; \
 	echo ''; \
 	echo '%description'; \
 	echo 'This extension allows Brotli compression and decompression.'; \
@@ -191,7 +194,7 @@ srpm:
 	echo '%changelog'; \
 	echo "* $$(date '+%a %b %d %Y') COPR Builder - $(BROTLI_VERSION)-1"; \
 	echo '- Automated build from GitHub release $(BROTLI_VERSION)'; \
-	echo '- Built with bundled brotli library'; \
+	echo "- Built with bundled brotli $$BUNDLED_BROTLI"; \
 	echo '- Supports both NTS and ZTS builds'; \
 	) > php-brotli.spec || exit 1
 	
